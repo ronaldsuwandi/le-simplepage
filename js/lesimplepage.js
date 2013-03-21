@@ -16,24 +16,22 @@ $(function () {
   $.each(Settings.contents, function(index, content) {
     if (!content.ref || content.ref.trim() === "") return;
 
-    // load from the reference and update, must be synchronous to keep order
-    $.ajax({  
-      url: content.ref,
-      dataType: 'text',
-      success: function(data) {
-        var titleHtml = '<p class="title"><a href="#">'+content.title+'</a></p>';
-        var contentHtml = '<div class="content">'+markdown.makeHtml(data)+'</div>';
+    // add to html
+    var titleHtml = '<p class="title"><a href="#">'+content.title+'</a></p>';
+    var contentHtml = '<div class="content" id='+index+'></div>';
 
-        var html = 
-        '<section class="section" id=' + index +'>' +
-        titleHtml + contentHtml + 
-        '</section>';
-        
-        var datasection = 'section.content div[data-section]';
-        $(datasection).append(html);
+    var html = 
+    '<section class="section" id=' + index +'>' +
+    titleHtml + contentHtml + 
+    '</section>';
+    
+    var datasection = 'section.content div[data-section]';
+    $(datasection).append(html);
 
-      },
-      async: false
+    // load the file asynchronously to improve performance
+    $.get(content.ref, function(data) {
+      var contentsection = 'section#'+index+'.section #'+index+'.content';
+      $(contentsection).html(markdown.makeHtml(data));
     });
   });
   // kickoff foundation
