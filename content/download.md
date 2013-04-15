@@ -1,4 +1,4 @@
 # Download
-[Download](https://bitbucket.org/RonaldSuwandi/le-simplepage/downloads/le-simplepage-1.00.zip)
+[Download](builds/le-simplepage-1.0.0.zip)
 
 [Repository](https://github.com/ronaldsuwandi/le-simplepage/)
